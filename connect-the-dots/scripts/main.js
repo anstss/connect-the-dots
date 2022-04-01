@@ -6,7 +6,7 @@ const config = {
   rows: 6,
   cols: 6,
   dotColors: ['#E9FF00', '#00D7FF', '#1AEC00', '#FF0000', '#B600FF'],
-  dotRadius: 30,
+  dotRadius: 40,
   scene: new GameScene()
 }
 

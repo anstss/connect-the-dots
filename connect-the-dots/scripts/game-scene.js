@@ -4,15 +4,11 @@ class GameScene extends Phaser.Scene {
   }
 
   create() {
-    this.dots = this.add.group();
-    this.fillGroup();
+    this.dots = new Dots(this);
+    this.connector = new Connector(this, 0, 0);
   }
 
-  fillGroup() {
-    for (let r = 0; r < config.rows; r++) {
-      for (let c = 0; c < config.cols; c++) {
-        this.dots.add(Dot.generateDot(this, r, c));
-      }
-    }
+  update() {
+    // this.dots.children.entries.forEach((dot) => dot.startDrawingLine());
   }
 }

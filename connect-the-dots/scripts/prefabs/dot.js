@@ -1,7 +1,19 @@
 class Dot extends Phaser.GameObjects.Ellipse {
   constructor(scene) {
     super(scene, 0, 0, config.dotRadius, config.dotRadius);
-    scene.add.existing(this);
+    this.scene = scene;
+    this.init();
+  }
+
+  init() {
+    this.scene.add.existing(this);
+    this.setInteractive();
+    this.on('pointerdown', this.startDrawingLine, this);
+  }
+
+  startDrawingLine() {
+    console.log(game.input.activePointer.isDown)
+    console.log('test')
   }
 
   static generateDot(scene, row, col) {
