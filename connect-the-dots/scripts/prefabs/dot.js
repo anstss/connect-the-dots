@@ -16,12 +16,12 @@ class Dot extends Phaser.GameObjects.Ellipse {
     const colorIndex = Phaser.Math.Between(0, config.dotColors.length - 1);
     const dotColor = Phaser.Display.Color.HexStringToColor(config.dotColors[colorIndex]).color;
 
-    const padding = 30;
-    const offsetX = (config.width - (config.dotRadius * 2 + padding) * config.cols) / 2 + config.dotRadius + padding / 2;
+    dot.margin = 30;
+    const offsetX = (config.width - (config.dotRadius * 2 + dot.margin) * config.cols) / 2 + config.dotRadius + dot.margin / 2;
     const offsetY = 250;
 
-    const x = col * config.dotRadius * 2 + padding * col + offsetX;
-    const y = row * config.dotRadius * 2 + padding * row + offsetY;
+    const x = col * config.dotRadius * 2 + dot.margin * col + offsetX;
+    const y = row * config.dotRadius * 2 + dot.margin * row + offsetY;
 
     dot.setFillStyle(dotColor);
     dot.setPosition(x, y);

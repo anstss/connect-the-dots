@@ -6,7 +6,6 @@ class Dots extends Phaser.GameObjects.Group {
   }
 
   init() {
-    this.dotCounter = 0;
     this.fillGroup();
   }
 
