@@ -8,25 +8,6 @@ class Dot extends Phaser.GameObjects.Ellipse {
   init() {
     this.scene.add.existing(this);
     this.setInteractive();
-    this.on('pointerdown', this.startDrawingLine, this);
-    this.scene.input.on('pointerup', this.stopDrawingLine, this);
-  }
-
-  startDrawingLine() {
-    this.isActive = true;
-    if (game.input.activePointer.isDown) {
-      if (this.connector) {
-        this.connector.x2 = game.input.activePointer.x;
-        this.connector.y2 = game.input.activePointer.y;
-        this.connector.init();
-      } else {
-        this.connector = new Connector(this.scene, this.x, this.y, game.input.activePointer.x, game.input.activePointer.y, this.fillColor);
-      }
-    }
-  }
-
-  stopDrawingLine() {
-    this.isActive = false;
   }
 
   static generateDot(scene, row, col) {

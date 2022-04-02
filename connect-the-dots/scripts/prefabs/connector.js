@@ -3,10 +3,10 @@ class Connector extends Phaser.Geom.Line {
     super(x1, y1, x2, y2);
     this.scene = scene;
     this.color = color;
-    this.init();
+    this.redraw();
   }
 
-  init() {
+  redraw() {
     if (this.graphics) {
       this.graphics.clear();
     }
