@@ -17,14 +17,23 @@ class GameScene extends Phaser.Scene {
     this.activeDot.connector = new Connector(this, this.activeDot.x, this.activeDot.y, game.input.activePointer.x, game.input.activePointer.y, this.activeDot.fillColor);
   }
 
-  stopDrawingLine(dot) {
-    console.log('stopDrawingLine')
+  stopDrawingLine() {
     if (this.activeDot) {
       this.activeDot.isActive = false;
-      this.activeDot.connector.x2 = dot.x;
-      this.activeDot.connector.y2 = dot.y;
+      this.activeDot.connector.x2 = this.activeDot.x;
+      this.activeDot.connector.y2 = this.activeDot.y;
       this.activeDot.connector.redraw();
-      this.startDrawingLine(dot);
+    }
+  }
+
+  createDotConnection(newDot) {
+    const connectionAllowed = this.connectionAllowed(this.activeDot, newDot);
+    if (this.activeDot && connectionAllowed) {
+      this.activeDot.isActive = false;
+      this.activeDot.connector.x2 = newDot.x;
+      this.activeDot.connector.y2 = newDot.y;
+      this.activeDot.connector.redraw();
+      this.startDrawingLine(newDot);
     }
   }
 
@@ -38,8 +47,13 @@ class GameScene extends Phaser.Scene {
 
   markDot(dot) {
     if (game.input.activePointer.isDown && !dot.isMarked) {
-      this.stopDrawingLine(dot);
+      this.createDotConnection(dot);
     }
+  }
+
+  connectionAllowed(prevDot, currentDot) {
+    if (prevDot.fillColor === currentDot.fillColor) return true;
+    return false;
   }
 
   update() {
