@@ -1,11 +1,16 @@
-class Connector extends Phaser.GameObjects.Line {
-  constructor(scene, x, y, color) {
-    super(scene, 0, 0, x, y, x + 200, y + 200, 0xaa00aa);
+class Connector extends Phaser.Geom.Line {
+  constructor(scene, x1, y1, x2, y2, color) {
+    super(x1, y1, x2, y2);
     this.scene = scene;
+    this.color = color;
     this.init();
   }
 
   init() {
-    this.scene.add.existing(this);
+    if (this.graphics) {
+      this.graphics.clear();
+    }
+    this.graphics = this.scene.add.graphics({ lineStyle: { width: 4, color: this.color }});
+    this.graphics.strokeLineShape(this);
   }
 }
