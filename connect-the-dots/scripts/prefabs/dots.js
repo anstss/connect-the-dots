@@ -33,13 +33,29 @@ class Dots extends Phaser.GameObjects.Group {
       this.activeDot.connector.y2 = this.activeDot.y;
       this.activeDot.connector.redraw();
     }
+    this.deleteDots();
+    this.moveDots();
+    this.markedDots.length = 0;
+  }
+
+  deleteDots() {
     if (this.markedDots.length > 1) {
       this.markedDots.forEach((dot) => {
         dot.connector.graphics.clear();
         dot.destroy();
       });
     }
-    this.markedDots.length = 0;
+  }
+
+  moveDots() {
+    this.markedDots.sort((a, b) => a.row - b.row);
+    this.markedDots.forEach((markedDot) => {
+      this.children.entries.forEach((dot) => {
+        if (dot.col === markedDot.col && dot.row < markedDot.row) {
+          dot.moveDot()
+        }
+      });
+    });
   }
 
   createDotConnection(newDot) {
