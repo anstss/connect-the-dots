@@ -12,8 +12,26 @@ class Dot extends Phaser.GameObjects.Ellipse {
 
   moveDot() {
     this.row++;
-    const {x, y} = this.calculatePosition();
-    this.setPosition(x, y);
+    this.addAnimation(true);
+  }
+
+  addAnimation(moving = false) {
+    const {x: newX, y: newY} = this.calculatePosition();
+    let delay, duration;
+    if (moving) {
+      delay = duration = 200;
+    } else {
+      delay = Phaser.Math.Between(100, 700);
+      duration = Phaser.Math.Between(100, 700);
+    }
+    this.scene.tweens.add({
+      targets: this,
+      x: {from: this.x, to: newX},
+      y: {from: this.y, to: newY},
+      delay,
+      duration,
+      ease: 'Linear'
+    });
   }
 
   calculatePosition() {
@@ -37,7 +55,7 @@ class Dot extends Phaser.GameObjects.Ellipse {
     const {x, y} = dot.calculatePosition();
 
     dot.setFillStyle(dotColor);
-    dot.setPosition(x, y);
+    dot.setPosition(x, -200);
 
     return dot;
   }

@@ -16,6 +16,7 @@ class Dots extends Phaser.GameObjects.Group {
         this.add(Dot.generateDot(this.scene, r, c));
       }
     }
+    this.children.entries.forEach((dot) => dot.addAnimation());
   }
 
   startDrawingLine(dot) {
@@ -52,7 +53,7 @@ class Dots extends Phaser.GameObjects.Group {
     this.markedDots.forEach((markedDot) => {
       this.children.entries.forEach((dot) => {
         if (dot.col === markedDot.col && dot.row < markedDot.row) {
-          dot.moveDot()
+          dot.moveDot();
         }
       });
     });
