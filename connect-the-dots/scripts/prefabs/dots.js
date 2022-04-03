@@ -39,6 +39,7 @@ class Dots extends Phaser.GameObjects.Group {
         dot.destroy();
       });
     }
+    this.markedDots.length = 0;
   }
 
   createDotConnection(newDot) {
