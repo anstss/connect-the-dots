@@ -5,12 +5,14 @@ class GameScene extends Phaser.Scene {
 
   create() {
     this.dots = new Dots(this);
+    this.markedDots = [];
     this.input.on('gameobjectdown', (pointer, gameObject) => this.startDrawingLine(gameObject));
     this.input.on('pointerup', this.stopDrawingLine, this);
     this.input.on('gameobjectover', (pointer, gameObject) => this.markDot(gameObject));
   }
 
   startDrawingLine(dot) {
+    this.markedDots.push(dot);
     this.activeDot = dot;
     this.activeDot.isActive = true;
     this.activeDot.isMarked = true;
@@ -46,9 +48,21 @@ class GameScene extends Phaser.Scene {
   }
 
   markDot(dot) {
-    if (game.input.activePointer.isDown && !dot.isMarked && this.activeDot) {
+    if (game.input.activePointer.isDown && dot.isActive && this.markedDots.length > 1) {
+      this.unmarkDot(dot);
+    } else if (game.input.activePointer.isDown && !dot.isMarked && this.activeDot) {
       this.createDotConnection(dot);
     }
+  }
+
+  unmarkDot(dot) {
+    dot.isActive = false;
+    dot.isMarked = false;
+    dot.connector.graphics.destroy();
+    this.markedDots.pop();
+    this.activeDot = this.markedDots[this.markedDots.length - 1];
+    this.activeDot.isActive = true;
+    this.updateLine();
   }
 
   connectionAllowed(prevDot, currentDot) {
