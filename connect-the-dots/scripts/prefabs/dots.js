@@ -33,6 +33,12 @@ class Dots extends Phaser.GameObjects.Group {
       this.activeDot.connector.y2 = this.activeDot.y;
       this.activeDot.connector.redraw();
     }
+    if (this.markedDots.length > 1) {
+      this.markedDots.forEach((dot) => {
+        dot.connector.graphics.clear();
+        dot.destroy();
+      });
+    }
   }
 
   createDotConnection(newDot) {
