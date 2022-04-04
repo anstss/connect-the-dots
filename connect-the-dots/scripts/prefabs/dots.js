@@ -31,6 +31,7 @@ class Dots extends Phaser.GameObjects.Group {
   stopDrawingLine() {
     if (this.activeDot) {
       this.activeDot.isActive = false;
+      this.activeDot.isMarked = false;
       this.activeDot.connector.x2 = this.activeDot.x;
       this.activeDot.connector.y2 = this.activeDot.y;
       this.activeDot.connector.redraw();
