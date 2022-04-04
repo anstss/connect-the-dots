@@ -8,6 +8,7 @@ class Dots extends Phaser.GameObjects.Group {
   init() {
     this.fillGroup();
     this.markedDots = [];
+    this.score = 0;
   }
 
   fillGroup() {
@@ -47,7 +48,9 @@ class Dots extends Phaser.GameObjects.Group {
     this.markedDots.forEach((dot) => {
       dot.connector.graphics.clear();
       dot.destroy();
+      this.score++;
     });
+    this.scene.scoreText.setText(`Score: ${this.score}`);
   }
 
   moveDots() {
@@ -115,7 +118,7 @@ class Dots extends Phaser.GameObjects.Group {
   connectionAllowed(prevDot, currentDot) {
     const allowedColor = prevDot.fillColor === currentDot.fillColor;
     const allowedDirections = prevDot.x === currentDot.x || prevDot.y === currentDot.y;
-    const allowedAxisOffset = prevDot.margin + config.dotRadius * 2;
+    const allowedAxisOffset = prevDot.margin + config.dotDiameter;
     const allowedX = currentDot.x === prevDot.x + allowedAxisOffset || currentDot.x === prevDot.x - allowedAxisOffset;
     const allowedY = currentDot.y === prevDot.y + allowedAxisOffset || currentDot.y === prevDot.y - allowedAxisOffset;
     return (allowedColor && allowedX || allowedColor && allowedY) && allowedDirections;

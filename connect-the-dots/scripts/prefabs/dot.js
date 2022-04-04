@@ -1,6 +1,6 @@
 class Dot extends Phaser.GameObjects.Ellipse {
   constructor(scene) {
-    super(scene, 0, 0, config.dotRadius, config.dotRadius);
+    super(scene, 0, 0, config.dotDiameter, config.dotDiameter);
     this.scene = scene;
     this.init();
   }
@@ -37,8 +37,8 @@ class Dot extends Phaser.GameObjects.Ellipse {
   }
 
   calculatePosition() {
-    const x = this.col * config.dotRadius * 2 + this.margin * this.col + this.offsetX;
-    const y = this.row * config.dotRadius * 2 + this.margin * this.row + this.offsetY;
+    const x = this.col * config.dotDiameter + this.margin * this.col + this.offsetX;
+    const y = this.row * config.dotDiameter + this.margin * this.row + this.offsetY;
     return {x, y};
   }
 
@@ -50,8 +50,8 @@ class Dot extends Phaser.GameObjects.Ellipse {
 
     dot.col = col;
     dot.row = row;
-    dot.margin = 30;
-    dot.offsetX = (config.width - (config.dotRadius * 2 + dot.margin) * config.cols) / 2 + config.dotRadius + dot.margin / 2;
+    dot.margin = 50;
+    dot.offsetX = (config.width - (config.dotDiameter + dot.margin) * config.cols) / 2 + dot.margin;
     dot.offsetY = 250;
 
     const {x, y} = dot.calculatePosition();
