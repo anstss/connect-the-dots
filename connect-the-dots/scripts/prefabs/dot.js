@@ -10,8 +10,10 @@ class Dot extends Phaser.GameObjects.Ellipse {
     this.setInteractive();
   }
 
-  moveDot() {
-    this.row++;
+  moveDot(newDot = false) {
+    if (!newDot) {
+      this.row++;
+    }
     this.addAnimation(true);
   }
 

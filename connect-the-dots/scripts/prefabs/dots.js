@@ -34,18 +34,20 @@ class Dots extends Phaser.GameObjects.Group {
       this.activeDot.connector.y2 = this.activeDot.y;
       this.activeDot.connector.redraw();
     }
-    this.deleteDots();
-    this.moveDots();
+    if (this.markedDots.length > 1) {
+      this.deleteDots();
+      this.moveDots();
+      this.createNewDots();
+      this.markedDots.forEach((markedDot) => this.remove(markedDot));
+    }
     this.markedDots.length = 0;
   }
 
   deleteDots() {
-    if (this.markedDots.length > 1) {
-      this.markedDots.forEach((dot) => {
-        dot.connector.graphics.clear();
-        dot.destroy();
-      });
-    }
+    this.markedDots.forEach((dot) => {
+      dot.connector.graphics.clear();
+      dot.destroy();
+    });
   }
 
   moveDots() {
@@ -57,6 +59,20 @@ class Dots extends Phaser.GameObjects.Group {
         }
       });
     });
+  }
+
+  createNewDots() {
+    const deletedDotsInCol = this.markedDots.reduce((amountInCol, dot) => {
+      amountInCol[dot.col] = (amountInCol[dot.col] || 0) + 1;
+      return amountInCol;
+    }, {});
+    for (let [col, amount] of Object.entries(deletedDotsInCol)) {
+      for (let i = amount - 1; i >= 0; i--) {
+        const newDot = Dot.generateDot(this.scene, i, +col);
+        this.add(newDot);
+        newDot.moveDot(true);
+      }
+    }
   }
 
   createDotConnection(newDot) {
