@@ -8,7 +8,7 @@ class Dots extends Phaser.GameObjects.Group {
   init() {
     this.fillGroup();
     this.markedDots = [];
-    this.score = 0;
+    this.points = 0;
   }
 
   fillGroup() {
@@ -49,9 +49,9 @@ class Dots extends Phaser.GameObjects.Group {
     this.markedDots.forEach((dot) => {
       dot.connector.graphics.clear();
       dot.destroy();
-      this.score++;
+      this.points++;
     });
-    this.scene.scoreText.setText(`Score: ${this.score}`);
+    this.scene.pointsText.setText(`Points: ${this.points}`);
   }
 
   moveDots() {

@@ -12,11 +12,11 @@ class GameScene extends Phaser.Scene {
   }
 
   createText() {
-    this.scoreText = this.add.text(this.dots.children.entries[0].offsetX - config.dotDiameter / 2, 100, `Score: ${this.dots.score}`, {
+    this.pointsText = this.add.text(config.width - (this.dots.children.entries[0].offsetX - config.dotDiameter / 2), 100, `Points: ${this.dots.points}`, {
       fontSize: '36px',
       fontStyle: 'bold',
       color: '#000'
-    });
+    }).setOrigin(1, 0.5);
   }
 
   update() {
