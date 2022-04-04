@@ -10,7 +10,7 @@ class Connector extends Phaser.Geom.Line {
     if (this.graphics) {
       this.graphics.clear();
     }
-    this.graphics = this.scene.add.graphics({ lineStyle: { width: 4, color: this.color }});
+    this.graphics = this.scene.add.graphics({ lineStyle: { width: 10, color: this.color }});
     this.graphics.strokeLineShape(this);
   }
 }
